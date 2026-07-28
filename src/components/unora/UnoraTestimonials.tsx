@@ -1,4 +1,5 @@
 import { Reveal } from "../reveal";
+import { GradientField } from "./GradientField";
 import { UNORA } from "./theme";
 
 // Same QUOTES as testimonials.tsx — real client quotes, new card treatment.
@@ -27,12 +28,14 @@ export function UnoraTestimonials() {
   return (
     <section
       aria-labelledby="unora-testimonials-heading"
+      className="relative overflow-hidden"
       style={{ background: UNORA.cream }}
     >
+      <GradientField colors={[UNORA.coral, UNORA.navySoft]} />
       <h2 id="unora-testimonials-heading" className="sr-only">
         Client testimonials
       </h2>
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20 md:px-8 md:py-24">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 sm:py-14 md:px-8 md:py-16">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {QUOTES.map((q, i) => (
             <Reveal key={q.name} delay={i * 100}>

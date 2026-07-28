@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "../reveal";
+import { GradientField } from "./GradientField";
 import { UNORA } from "./theme";
 
 // Same data shape as kitchen.tsx's CHEFS/DISHES — simplified highlight only
@@ -22,9 +23,11 @@ export function UnoraKitchen() {
     <section
       id="kitchen"
       aria-labelledby="unora-kitchen-heading"
-      style={{ background: UNORA.cream }}
+      className="relative overflow-hidden"
+      style={{ background: UNORA.blueTint }}
     >
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20 md:px-8 md:py-24">
+      <GradientField colors={[UNORA.navySoft, UNORA.gold]} />
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 sm:py-14 md:px-8 md:py-16">
         <Reveal className="max-w-2xl">
           <p
             className="mb-3 text-[12px] font-semibold tracking-[0.28em]"

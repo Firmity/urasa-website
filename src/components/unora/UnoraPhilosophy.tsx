@@ -1,5 +1,6 @@
 import { Reveal } from "../reveal";
 import { IconBadge, LeafIcon, ScaleIcon, ShieldCheckIcon } from "./icons";
+import { GradientField } from "./GradientField";
 import { UNORA } from "./theme";
 
 const PRINCIPLES = [
@@ -38,9 +39,11 @@ export function UnoraPhilosophy() {
     <section
       id="philosophy"
       aria-labelledby="unora-philosophy-heading"
+      className="relative overflow-hidden"
       style={{ background: UNORA.cream }}
     >
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20 md:px-8 md:py-24">
+      <GradientField colors={[UNORA.olive, UNORA.gold, UNORA.coral]} />
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 sm:py-14 md:px-8 md:py-16">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p
             className="mb-3 text-[12px] font-semibold tracking-[0.28em]"

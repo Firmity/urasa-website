@@ -17,19 +17,21 @@ export function UnoraHero() {
       className="relative overflow-hidden"
       style={{ background: UNORA.cream }}
     >
-      {/* Decorative color blobs */}
+      {/* Decorative color blobs — slowly drifting (see unora-drift-* in
+          globals.css), not static, so the hero has the same ambient
+          motion as the rest of the Unora page. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full opacity-70 blur-2xl"
+        className="unora-drift-1 pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full opacity-70 blur-2xl"
         style={{ background: UNORA.gold }}
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-32 top-40 h-96 w-96 rounded-full opacity-50 blur-3xl"
+        className="unora-drift-2 pointer-events-none absolute -right-32 top-40 h-96 w-96 rounded-full opacity-50 blur-3xl"
         style={{ background: UNORA.olive }}
       />
 
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-10 px-5 py-14 sm:py-20 md:grid-cols-2 md:items-center md:gap-8 md:px-8 md:py-24">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-10 px-5 py-10 sm:py-14 md:grid-cols-2 md:items-center md:gap-8 md:px-8 md:py-16">
         <Reveal>
           <div className="flex items-center gap-2">
             <span

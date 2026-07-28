@@ -1,5 +1,6 @@
 import { Reveal } from "../reveal";
 import { IconBadge, ChefHatIcon, LeafIcon, HandshakeIcon } from "./icons";
+import { GradientField } from "./GradientField";
 import { UNORA } from "./theme";
 
 // Real content from value-pillars.tsx (PILLARS) — reframed as excellence
@@ -34,9 +35,11 @@ export function UnoraExcellenceBand() {
   return (
     <section
       aria-labelledby="unora-excellence-heading"
+      className="relative overflow-hidden"
       style={{ background: UNORA.navy }}
     >
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20 md:px-8 md:py-24">
+      <GradientField colors={[UNORA.coral, UNORA.gold]} />
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 sm:py-14 md:px-8 md:py-16">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2
             id="unora-excellence-heading"

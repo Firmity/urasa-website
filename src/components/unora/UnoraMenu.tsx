@@ -5,6 +5,7 @@ import { Reveal } from "../reveal";
 import { useSeason } from "../app-provider";
 import { RITUS } from "@/lib/season";
 import { UnoraButton } from "./button";
+import { GradientField } from "./GradientField";
 import { UNORA } from "./theme";
 
 // Same six course stages + per-ritu illustrative dishes as seasonal-menu.tsx
@@ -93,9 +94,11 @@ export function UnoraMenu() {
     <section
       id="menu"
       aria-labelledby="unora-menu-heading"
+      className="relative overflow-hidden"
       style={{ background: UNORA.cream }}
     >
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20 md:px-8 md:py-24">
+      <GradientField colors={[UNORA.gold, UNORA.olive]} />
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 sm:py-14 md:px-8 md:py-16">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p
             className="mb-3 text-[12px] font-semibold tracking-[0.28em]"

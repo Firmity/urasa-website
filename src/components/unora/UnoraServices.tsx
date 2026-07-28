@@ -8,6 +8,7 @@ import {
   PeopleIcon,
   SparklesIcon,
 } from "./icons";
+import { GradientField } from "./GradientField";
 import { UNORA } from "./theme";
 
 // Real Urasa content only — mirrors activities.tsx (ACTIVITIES) and
@@ -53,12 +54,14 @@ export function UnoraServices() {
   return (
     <section
       aria-labelledby="unora-services-heading"
-      style={{ background: UNORA.cream }}
+      className="relative overflow-hidden"
+      style={{ background: UNORA.blueTint }}
     >
+      <GradientField colors={[UNORA.navySoft, UNORA.coral]} />
       <h2 id="unora-services-heading" className="sr-only">
         Our services and who we serve
       </h2>
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20 md:px-8 md:py-24">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 sm:py-14 md:px-8 md:py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-8">
           <div>
             <p

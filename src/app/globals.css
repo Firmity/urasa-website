@@ -203,6 +203,42 @@ html[data-reduce-motion="true"] .reveal.is-visible {
 }
 
 /* ---------------------------------------------------------------
+   Unora landing page — slowly drifting decorative gradient blobs
+   (see components/unora/GradientField.tsx and the Hero's own blobs).
+   Three separate keyframes/durations so a section with multiple blobs
+   doesn't move them all in visible lockstep. Purely transform-based
+   (translate + scale) so it's cheap to composite. The site-wide
+   reduced-motion rules above (html[data-reduce-motion="true"] and
+   prefers-reduced-motion) already force every animation-duration to
+   0.01ms, so this automatically goes static for anyone who's asked for
+   less motion — no extra guard needed here.
+----------------------------------------------------------------- */
+@keyframes unora-drift-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(34px, -26px) scale(1.08); }
+  100% { transform: translate(-22px, 20px) scale(0.95); }
+}
+@keyframes unora-drift-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-28px, 24px) scale(1.06); }
+  100% { transform: translate(22px, -18px) scale(0.94); }
+}
+@keyframes unora-drift-3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, 26px) scale(1.05); }
+  100% { transform: translate(-24px, -16px) scale(0.97); }
+}
+.unora-drift-1 {
+  animation: unora-drift-1 26s ease-in-out infinite alternate;
+}
+.unora-drift-2 {
+  animation: unora-drift-2 32s ease-in-out infinite alternate;
+}
+.unora-drift-3 {
+  animation: unora-drift-3 21s ease-in-out infinite alternate;
+}
+
+/* ---------------------------------------------------------------
    Embroidered cursor set (public/cursors/*.png) — mouse/trackpad only.
    Scoped to `pointer: fine` so touch devices keep their native
    behavior untouched (custom cursor images are meaningless on touch).

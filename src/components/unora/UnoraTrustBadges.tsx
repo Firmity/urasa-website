@@ -1,5 +1,6 @@
 import { Reveal } from "../reveal";
 import { IconBadge, LeafIcon, ShieldCheckIcon, ChefHatIcon, CalendarClockIcon, HandshakeIcon } from "./icons";
+import { GradientField } from "./GradientField";
 import { UNORA } from "./theme";
 
 const BADGES = [
@@ -15,12 +16,14 @@ export function UnoraTrustBadges() {
   return (
     <section
       aria-labelledby="unora-trust-heading"
-      style={{ background: UNORA.cream }}
+      className="relative overflow-hidden"
+      style={{ background: UNORA.blueTint }}
     >
+      <GradientField colors={[UNORA.coral, UNORA.gold]} />
       <h2 id="unora-trust-heading" className="sr-only">
         Why clients choose Urasa
       </h2>
-      <div className="mx-auto max-w-6xl px-5 py-10 sm:py-12 md:px-8">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-8 sm:py-10 md:px-8">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-5 sm:gap-4">
           {BADGES.map((b, i) => (
             <Reveal

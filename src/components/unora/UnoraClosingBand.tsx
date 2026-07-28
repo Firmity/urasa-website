@@ -16,10 +16,15 @@ export function UnoraClosingBand() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-20 -right-16 h-64 w-64 rounded-full opacity-40 blur-2xl"
+        className="unora-drift-1 pointer-events-none absolute -bottom-20 -right-16 h-64 w-64 rounded-full opacity-40 blur-2xl"
         style={{ background: UNORA.gold }}
       />
-      <div className="relative mx-auto max-w-4xl px-5 py-14 text-center sm:py-20 md:px-8">
+      <div
+        aria-hidden="true"
+        className="unora-drift-2 pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full opacity-25 blur-2xl"
+        style={{ background: UNORA.navy }}
+      />
+      <div className="relative z-10 mx-auto max-w-4xl px-5 py-10 text-center sm:py-14 md:px-8">
         <Reveal>
           <h2
             id="unora-closing-heading"
