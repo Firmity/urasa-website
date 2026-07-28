@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Urasa — design tokens
+   Palette named after the materials it references:
+   washi (paper), sumi (ink), brand (logo green), ai (indigo),
+   kin (gold thread), nezumi (mouse-grey, secondary ink).
+   --season-accent rotates automatically with the six Indian ritu
+   (see src/lib/season.ts) and is set on <html> via JS; it is used
+   sparingly for small seasonal details, never for primary actions,
+   which always stay on brand green for identity consistency.
+----------------------------------------------------------------- */
+:root {
+  --font-display: "Shippori Mincho", serif;
+  --font-body: "Manrope", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --washi: #edeee8;
+  --washi-raised: #f5f5f0;
+  --sumi: #1c1b19;
+  --sumi-soft: #2c2a26;
+  --brand: #40492c;
+  --brand-deep: #2e3320;
+  --ai: #2b3a55;
+  --kin: #9c8248;
+  --nezumi: #837e72;
+  --nezumi-light: #c9c5b8;
+  --line: rgba(28, 27, 25, 0.12);
+  --season-accent: #8a9a3f;
+
+  --motion-fast: 180ms;
+  --motion-base: 420ms;
+  --motion-slow: 900ms;
+  --ease-shoji: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-washi: var(--washi);
+  --color-washi-raised: var(--washi-raised);
+  --color-ink: var(--sumi);
+  --color-ink-soft: var(--sumi-soft);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-ai: var(--ai);
+  --color-kin: var(--kin);
+  --color-nezumi: var(--nezumi);
+  --color-nezumi-light: var(--nezumi-light);
+  --color-line: var(--line);
+  --color-season: var(--season-accent);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+/* Reduced motion: system preference always wins (WCAG 2.3.3), and can
+   also be forced via the in-app accessibility toggle by setting
+   data-reduce-motion="true" on <html>. */
+html[data-reduce-motion="true"] *,
+html[data-reduce-motion="true"] *::before,
+html[data-reduce-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-reduce-motion="false"]) *,
+  html:not([data-reduce-motion="false"]) *::before,
+  html:not([data-reduce-motion="false"]) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High-contrast accessibility mode: pushes every ink/paper pair to near
+   pure black/white and thickens rules, without changing layout. */
+html[data-high-contrast="true"] {
+  --washi: #ffffff;
+  --washi-raised: #ffffff;
+  --sumi: #000000;
+  --sumi-soft: #000000;
+  --nezumi: #2b2b2b;
+  --nezumi-light: #000000;
+  --line: rgba(0, 0, 0, 0.55);
+  --brand: #2e3320;
+  --ai: #1a2740;
+  --season-accent: #2e3320;
+}
+
+/* In-page anchor CTAs (nav links, "see a sample menu", etc.) glide to
+   their target instead of snapping. The reduced-motion rules above both
+   force scroll-behavior back to auto with !important, so this backs off
+   automatically for anyone who's asked for less motion. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background-color: var(--washi);
+  color: var(--sumi);
+  font-family: var(--font-body);
+}
+
+/* Paper grain, site-wide. This used to live as a background-image on
+   <body>, but every section paints its own opaque bg-washi/bg-ink/etc on
+   top, so the body's own background was permanently hidden behind them —
+   the texture was never visible no matter how strong. Fixed by using a
+   fixed, full-viewport pseudo-element with mix-blend-mode instead: it
+   sits in its own layer above every section's content (z-index high
+   enough to clear the sticky header and modals) and blends into
+   whatever's beneath, so it reads on light AND dark surfaces alike.
+   pointer-events: none keeps it from intercepting clicks. Disabled
+   entirely under high-contrast mode, where crisp flat color matters more
+   than texture. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  background-image: url("/paper-grain.png");
+  background-repeat: repeat;
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.2;
+}
+
+html[data-high-contrast="true"] body::after {
+  content: none;
+}
+
+/* Visible, high-contrast keyboard focus everywhere (WCAG 2.4.7) */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+::selection {
+  background: var(--brand);
+  color: var(--washi);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--motion-slow) var(--ease-shoji),
+    transform var(--motion-slow) var(--ease-shoji);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+html[data-reduce-motion="true"] .reveal,
+html[data-reduce-motion="true"] .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.brush-underline {
+  position: relative;
+}
+.brush-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  width: 100%;
+  height: 0.09em;
+  background: var(--brand);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform var(--motion-base) var(--ease-shoji);
+}
+.brush-underline:hover::after,
+.brush-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Seasonal Menu: crossfade for the colored ritu panel's content when a
+   different ritu is selected on the timeline. The panel's own
+   background-color transitions natively (see seasonal-menu.tsx); this
+   keyframe only handles the text/photo content, which remounts on
+   ritu change via a `key` prop. */
+@keyframes menu-panel-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.menu-fade {
+  animation: menu-panel-fade var(--motion-base) var(--ease-shoji);
+}
+
+/* ---------------------------------------------------------------
+   Embroidered cursor set (public/cursors/*.png) — mouse/trackpad only.
+   Scoped to `pointer: fine` so touch devices keep their native
+   behavior untouched (custom cursor images are meaningless on touch).
+   Hotspot coordinates are baked to each icon's active point (arrow
+   tip, fingertip, crosshair centre, I-beam centre) — see the crop
+   script notes; do not resize these images without recalculating.
+----------------------------------------------------------------- */
+@media (pointer: fine) {
+  html {
+    cursor: url("/cursors/arrow.png") 0 0, auto;
+  }
+
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    cursor: url("/cursors/pointer.png") 7 0, pointer;
+  }
+
+  a[href^="tel:"],
+  a[href^="mailto:"],
+  a[target="_blank"] {
+    cursor: url("/cursors/link.png") 29 9, pointer;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="number"],
+  textarea {
+    cursor: url("/cursors/text.png") 9 15, text;
+  }
+
+  [data-cursor="grab"] {
+    cursor: url("/cursors/move.png") 15 15, grab;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: url("/cursors/arrow.png") 0 0, not-allowed;
+  }
+}
