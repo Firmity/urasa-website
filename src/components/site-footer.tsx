@@ -1,9 +1,21 @@
+"use client";
+
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { BorderStrip } from "./border-strip";
+import { useA11y } from "./app-provider";
+import { unoraChromeVars } from "./unora/theme";
 
 export function SiteFooter() {
+  const { landingTheme } = useA11y();
+  // Same re-theme as the navbar (see unoraChromeVars) — keeps footer and
+  // header in visual sync without a parallel "unora" footer component.
+  const unoraVars = unoraChromeVars(landingTheme === "classic") as
+    | CSSProperties
+    | undefined;
+
   return (
-    <footer>
+    <footer style={unoraVars} className="bg-washi">
       <BorderStrip />
       <div className="mx-auto flex max-w-6xl flex-col gap-5 px-5 py-8 sm:gap-6 sm:py-10 md:flex-row md:items-center md:justify-between md:px-8">
         <div className="flex items-center gap-3">

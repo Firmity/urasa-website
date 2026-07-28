@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useA11y } from "./app-provider";
-import { UNORA } from "./unora/theme";
+import { unoraChromeVars } from "./unora/theme";
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
@@ -37,28 +37,9 @@ export function SiteHeader() {
   // new Unora-styled landing page. Not persisted on purpose.
   const isClassic = landingTheme === "classic";
 
-  // Re-theme the whole navbar (desktop bar + a11y panel + full-screen
-  // mobile menu) for the Unora landing page by locally overriding the
-  // same design-token CSS variables globals.css defines at :root — the
-  // exact pattern already used for html[data-high-contrast="true"].
-  // Every existing bg-washi / text-ink / border-line / bg-brand utility
-  // in this file re-resolves through this override automatically, so
-  // none of the markup below needs a parallel "unora" className branch.
-  const unoraVars: CSSProperties | undefined = isClassic
-    ? undefined
-    : ({
-        "--washi": UNORA.cream,
-        "--washi-raised": UNORA.creamRaised,
-        "--sumi": UNORA.navy,
-        "--sumi-soft": UNORA.inkSoft,
-        "--brand": UNORA.coral,
-        "--brand-deep": UNORA.coralDeep,
-        "--ai": UNORA.navySoft,
-        "--kin": UNORA.gold,
-        "--nezumi": UNORA.inkSoft,
-        "--nezumi-light": "#E4D6C2",
-        "--line": "rgba(22, 59, 77, 0.16)",
-      } as CSSProperties);
+  // Re-themes the whole navbar (desktop bar + a11y panel + full-screen
+  // mobile menu) for the Unora landing page — see unoraChromeVars for how.
+  const unoraVars = unoraChromeVars(isClassic) as CSSProperties | undefined;
 
   const anyPanelOpen = menuOpen || a11yOpen;
 
@@ -129,7 +110,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-1.5 sm:gap-2">
           <label className="mr-1 hidden cursor-pointer items-center gap-2 rounded-full border border-line py-1 pl-3 pr-1.5 md:flex">
             <span className="text-[11px] tracking-[0.1em] text-ink-soft">
-              {isClassic ? "Classic" : "New"}
+              {isClassic ? "Classic" : "Unora"}
             </span>
             <span className="relative inline-flex h-5 w-9 shrink-0 items-center">
               <input
