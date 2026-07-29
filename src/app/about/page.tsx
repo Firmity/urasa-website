@@ -48,7 +48,7 @@ export default function AboutPage() {
 
         <div className="relative mx-auto flex min-h-[72vh] max-w-6xl flex-col items-center justify-center px-6 py-20 sm:min-h-[85vh] sm:py-28">
           <div className="absolute left-6 top-6 flex items-center gap-2 text-ink sm:left-10 sm:top-10">
-            <span className="font-display text-xl leading-none">उरसा</span>
+            <span className="font-display text-xl leading-none">यूरसा</span>
             <span className="text-[10px] tracking-[0.25em] text-nezumi">
               URASA
             </span>
@@ -57,7 +57,7 @@ export default function AboutPage() {
             aria-hidden="true"
             className="absolute right-6 top-10 hidden text-xs tracking-[0.35em] text-nezumi sm:right-10 sm:block [writing-mode:vertical-rl]"
           >
-            उरसा · अवलोकन
+            यूरसा · अवलोकन
           </span>
 
           <Reveal className="relative flex flex-col items-center">
@@ -99,7 +99,7 @@ export default function AboutPage() {
               id="overview-heading"
               className="font-display mt-10 text-center text-3xl leading-tight text-ink sm:text-5xl"
             >
-              उरसा · Urasa
+              यूरसा · Urasa
             </h1>
             <p className="mt-2 text-center text-sm tracking-[0.14em] text-nezumi">
               We care about warmth
@@ -156,7 +156,7 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={100} className="grid grid-cols-2 gap-x-6 gap-y-8">
-            <MetaRow label="CLIENT" lines={["Urasa · उरसा"]} />
+            <MetaRow label="CLIENT" lines={["Urasa · यूरसा"]} />
             <MetaRow
               label="SERVICES"
               lines={[

@@ -51,7 +51,7 @@ export function UnoraHero() {
             className="font-display mt-5 text-4xl leading-[1.08] sm:text-6xl"
             style={{ color: UNORA.navy }}
           >
-            उरसा · Urasa
+            यूरसा · Urasa
           </h1>
           <p
             className="mt-5 max-w-md text-base leading-relaxed sm:text-lg"

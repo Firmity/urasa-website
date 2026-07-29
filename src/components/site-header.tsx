@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useA11y } from "./app-provider";
 import { unoraChromeVars } from "./unora/theme";
+import Link from "next/link";
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
@@ -84,7 +85,7 @@ export function SiteHeader() {
           notwithstanding) — that was silently swallowing taps on the
           hamburger button, so there was no way to close the menu. */}
       <div className="relative z-50 mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 sm:px-5 sm:py-3 md:px-8 md:py-4">
-        <a href="/" className="flex shrink-0 items-center" aria-label="Urasa — home">
+        <Link href="/" className="flex shrink-0 items-center" aria-label="Urasa — home">
           <Image
             src="/logo-mark.webp"
             alt="Urasa — We care about warmth"
@@ -93,7 +94,7 @@ export function SiteHeader() {
             className="h-10 w-auto sm:h-12"
             priority
           />
-        </a>
+        </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
