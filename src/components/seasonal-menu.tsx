@@ -498,7 +498,7 @@ function MenuItemModal({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
         <div className="absolute left-6 top-6 flex items-center gap-2 text-washi sm:left-10 sm:top-10">
-          <span className="font-display text-2xl leading-none">यूरसा</span>
+          <span className="font-display text-2xl leading-none">यूरासा</span>
           <span className="text-[10px] tracking-[0.25em] text-washi/80">
             URASA
           </span>
