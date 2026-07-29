@@ -10,6 +10,14 @@
    sparingly for small seasonal details, never for primary actions,
    which always stay on brand green for identity consistency.
 ----------------------------------------------------------------- */
+html {
+  /* Belt-and-suspenders alongside the <meta name="color-scheme"> tag in
+     layout.tsx's viewport export: tells the browser this page is
+     light-only, so Android/Samsung Internet's auto-dark-mode heuristic
+     doesn't invert our colors on phones with system dark mode on. */
+  color-scheme: light;
+}
+
 :root {
   --font-display: "Shippori Mincho", serif;
   --font-body: "Manrope", sans-serif;

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "@fontsource/shippori-mincho/400.css";
 import "@fontsource/shippori-mincho/500.css";
 import "@fontsource/shippori-mincho/600.css";
@@ -20,6 +20,17 @@ export const metadata: Metadata = {
   title: "Urasa — We care about warmth, Catering for Occasions of Consequence",
   description:
     "Urasa is a seasonal, ingredient-first Indian catering house for corporate events, weddings, and private functions, built on balanced cooking and one kitchen team from prep to plate.",
+};
+
+// This site has no dark theme — declaring colorScheme: "light" (renders
+// as <meta name="color-scheme" content="light">) stops Android
+// Chrome/WebView's "force dark" heuristic and Samsung Internet's night
+// mode from auto-inverting our colors, which is what was turning the
+// cream/coral Unora hero into the near-black + maroon screenshot: those
+// browsers apply a contrast-based auto-dark filter to any page that
+// doesn't explicitly say it's light-only.
+export const viewport: Viewport = {
+  colorScheme: "light",
 };
 
 export default function RootLayout({
