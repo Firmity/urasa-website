@@ -6,7 +6,6 @@ import { Activities } from "./activities";
 import { Philosophy } from "./philosophy";
 import { SeasonalMenu } from "./seasonal-menu";
 import { ValuePillars } from "./value-pillars";
-import { Kitchen } from "./kitchen";
 import { Testimonials } from "./testimonials";
 import { SectionDivider } from "./section-divider";
 import { UnoraHero } from "./unora/UnoraHero";
@@ -15,7 +14,6 @@ import { UnoraPhilosophy } from "./unora/UnoraPhilosophy";
 import { UnoraServices } from "./unora/UnoraServices";
 import { UnoraExcellenceBand } from "./unora/UnoraExcellenceBand";
 import { UnoraMenu } from "./unora/UnoraMenu";
-import { UnoraKitchen } from "./unora/UnoraKitchen";
 import { UnoraTestimonials } from "./unora/UnoraTestimonials";
 import { UnoraClosingBand } from "./unora/UnoraClosingBand";
 
@@ -41,8 +39,6 @@ export function LandingThemeSwitch() {
         <SectionDivider />
         <ValuePillars />
         <SectionDivider />
-        <Kitchen />
-        <SectionDivider />
         <Testimonials />
       </>
     );
@@ -56,7 +52,6 @@ export function LandingThemeSwitch() {
       <UnoraServices />
       <UnoraExcellenceBand />
       <UnoraMenu />
-      <UnoraKitchen />
       <UnoraTestimonials />
       <UnoraClosingBand />
     </>
