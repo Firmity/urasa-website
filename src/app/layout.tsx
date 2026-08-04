@@ -27,14 +27,27 @@ export const metadata: Metadata = {
   description:
     "Urasa is a seasonal, ingredient-first Indian catering house for corporate events, weddings, and private functions, built on balanced cooking and one kitchen team from prep to plate.",
   // Site-wide fallback so any page that forgets its own openGraph/twitter
-  // block still gets a sane social preview instead of nothing.
+  // block still gets a real preview instead of nothing when the link is
+  // shared on WhatsApp, Twitter/X, iMessage, Slack, etc. The 5 pages with
+  // their own openGraph.images (set from URASA META TECH.txt) override
+  // this per-field, not wholesale — this logo card is only what shows up
+  // where nothing more specific was requested.
   openGraph: {
     type: "website",
     siteName: "Urasa",
     url: SITE_URL,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Urasa — We care about warmth",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/og-image.png"],
   },
 };
 
@@ -47,6 +60,12 @@ export const metadata: Metadata = {
 // doesn't explicitly say it's light-only.
 export const viewport: Viewport = {
   colorScheme: "light",
+  // Tints the mobile browser chrome (Android Chrome's address bar,
+  // Safari's status bar area) with the brand green instead of default
+  // white/black — the same "make the browser itself feel branded" idea
+  // as the favicon, just for the chrome around the tab instead of the
+  // tab icon.
+  themeColor: "#40492C",
 };
 
 export default function RootLayout({
