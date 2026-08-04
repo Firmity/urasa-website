@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
+import { JsonLd } from "@/components/json-ld";
+import { accessibilitySchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Accessibility statement — Urasa",
-  description: "How urasa.example is built to be usable for everyone, and how to report an issue.",
+  title: "Accessibility Statement — Urasa",
+  description:
+    "How the Urasa website is built to be usable for everyone, and how to report an accessibility issue.",
+  alternates: { canonical: "/accessibility" },
+  openGraph: {
+    type: "website",
+    url: "/accessibility",
+    title: "Accessibility Statement — Urasa",
+    description:
+      "How the Urasa website is built to be usable for everyone, and how to report an accessibility issue.",
+  },
 };
 
 export default function AccessibilityPage() {
   return (
     <section aria-labelledby="a11y-heading" className="border-b border-line">
+      <JsonLd data={accessibilitySchema()} />
       <div className="mx-auto max-w-3xl px-5 py-14 sm:py-20 md:px-8 md:py-28">
         <Reveal>
           <p className="mb-4 text-[13px] tracking-[0.25em] text-brand">

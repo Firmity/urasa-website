@@ -1,11 +1,22 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Reveal } from "@/components/reveal";
+import { JsonLd } from "@/components/json-ld";
+import { responsibilitySchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Responsibility — Urasa",
   description:
     "How Urasa sources, cooks, and staffs responsibly — seasonal sourcing, balanced nutrition, and a single accountable kitchen team.",
+  alternates: { canonical: "/responsibility" },
+  openGraph: {
+    type: "website",
+    url: "/responsibility",
+    title: "Responsibility — Urasa",
+    description:
+      "Seasonal sourcing, balance on every plate, minimal waste, and one accountable kitchen team — no sub-contracted hands.",
+    images: ["/food/rainbow-bowl.webp"],
+  },
 };
 
 const PILLARS = [
@@ -30,6 +41,7 @@ const PILLARS = [
 export default function ResponsibilityPage() {
   return (
     <>
+      <JsonLd data={responsibilitySchema()} />
       <section aria-labelledby="responsibility-heading" className="border-b border-line">
         <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20 md:px-8 md:py-28">
           <Reveal className="max-w-2xl">

@@ -3,11 +3,22 @@ import Image from "next/image";
 import { Reveal } from "@/components/reveal";
 import { CountUp } from "@/components/count-up";
 import { CtaButton } from "@/components/cta-button";
+import { JsonLd } from "@/components/json-ld";
+import { aboutSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "About — Urasa",
+  title: "About Urasa — Driven by Ritu, Santulan & Nishtha",
   description:
-    "Urasa is a seasonal, ingredient-first Indian catering house built on one kitchen team, from prep to plate.",
+    "Discover Urasa's philosophy. Built on three core principles: Ritu (seasonal cooking), Santulan (balanced plates), and Nishtha (one dedicated kitchen team).",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    type: "website",
+    url: "/about",
+    title: "About Urasa — We Care About Warmth",
+    description:
+      "Learn how our single kitchen team plans, cooks, and serves seasonal menus with care and balance.",
+    images: ["/food/thali-platter.webp"],
+  },
 };
 
 const BRAND_MOCKUPS = [
@@ -27,6 +38,7 @@ const BRAND_MOCKUPS = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={aboutSchema()} />
       {/* Full-bleed overview cover: light washi ground (no black panel)
           with a decorative concentric-ring pattern tinted to the live
           ritu, and the Urasa mark blown up to real scale inside a soft

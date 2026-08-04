@@ -1,11 +1,22 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { CtaButton } from "@/components/cta-button";
+import { JsonLd } from "@/components/json-ld";
+import { careersSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Careers — Urasa",
+  title: "Careers at Urasa — Join Our Kitchen Team",
   description:
-    "Join the Urasa kitchen — one team that plans, cooks, and serves every event, on menus that change with the season.",
+    "Join a single kitchen team that plans, cooks, and serves every event from start to finish. Explore job opportunities and careers at Urasa.",
+  alternates: { canonical: "/careers" },
+  openGraph: {
+    type: "website",
+    url: "/careers",
+    title: "Careers at Urasa — Join Our Kitchen Team",
+    description:
+      "We build tables with care and warmth. Discover career opportunities in our seasonal kitchen team.",
+    images: ["/food/herbed-kebab-plate.webp"],
+  },
 };
 
 const REASONS = [
@@ -33,6 +44,7 @@ const ROLES = [
 export default function CareersPage() {
   return (
     <>
+      <JsonLd data={careersSchema()} />
       <section aria-labelledby="careers-heading" className="border-b border-line">
         <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20 md:px-8 md:py-28">
           <Reveal className="max-w-2xl">

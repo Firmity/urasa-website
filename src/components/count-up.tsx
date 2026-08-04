@@ -12,19 +12,24 @@ export function CountUp({
   suffix?: string;
   duration?: number;
 }) {
-  const [value, setValue] = useState(0);
+  // Starts at the real final value, not 0. This span is server-rendered
+  // like any other text — search engines and AI crawlers that don't run
+  // JavaScript (most of them: GPTBot, ClaudeBot, CCBot, PerplexityBot,
+  // etc.) read exactly what's in that initial HTML. With useState(0),
+  // every stat on the site (cities, guest counts, events catered) would
+  // read as "0" to them. The count-from-0 animation still happens for
+  // real browsers — it's kicked off client-side in the effect below,
+  // which only ever runs after hydration, so it can't cause a
+  // server/client mismatch.
+  const [value, setValue] = useState(to);
   const ref = useRef<HTMLSpanElement>(null);
   const { reduceMotion } = useA11y();
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || reduceMotion || !("IntersectionObserver" in window)) return;
 
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      const raf = requestAnimationFrame(() => setValue(to));
-      return () => cancelAnimationFrame(raf);
-    }
-
+    setValue(0);
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;

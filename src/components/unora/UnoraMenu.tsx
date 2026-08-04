@@ -4,91 +4,24 @@ import Image from "next/image";
 import { Reveal } from "../reveal";
 import { useSeason } from "../app-provider";
 import { RITUS } from "@/lib/season";
+import { COURSE_STAGES, MENU_PAGE_GROUPS, getDishesForRitu } from "@/lib/menu";
 import { UnoraButton } from "./button";
 import { GradientField } from "./GradientField";
 import { UNORA } from "./theme";
-
-// Same six course stages + per-ritu illustrative dishes as seasonal-menu.tsx
-// (COURSE_STAGES / DISHES_BY_RITU) — reused verbatim so the two themes never
-// disagree about what's actually on the menu. Real event menus are tasted
-// and confirmed before booking.
-const COURSE_STAGES = [
-  { n: "01", jp: "स्वागत", name: "Swagat", translation: "Welcome" },
-  { n: "02", jp: "कचूंबर", name: "Kachumber", translation: "Raw salad" },
-  { n: "03", jp: "सब्ज़ी", name: "Sabzi", translation: "Vegetable" },
-  { n: "04", jp: "दाल-चावल", name: "Dal-Chawal", translation: "Lentils & rice" },
-  { n: "05", jp: "तंदूर", name: "Tandoor", translation: "From the clay oven" },
-  { n: "06", jp: "मिष्ठान", name: "Mishti", translation: "Something sweet" },
-] as const;
-
-const DISHES_BY_RITU: Record<string, string[]> = {
-  vasant: [
-    "Fresh pea and mint shorba, finished with a curry leaf tempering.",
-    "Shaved fennel, orange, and young spinach, citrus dressing.",
-    "Stir-fried spring greens with garlic and dried red chilli.",
-    "Moong dal with fresh dill, paired with jeera rice.",
-    "Charred paneer tikka with a raw mango glaze.",
-    "Gajar halwa, lightly spiced, served warm.",
-  ],
-  grishma: [
-    "Chilled raw mango and buttermilk shorba, mustard tempering.",
-    "Cucumber, mint, and pomegranate salad, black salt.",
-    "Bhindi tossed with dried mango powder and kalonji.",
-    "Chana dal with tamarind, paired with jeera rice.",
-    "Tandoori prawns, yoghurt and kasuri methi marinade.",
-    "Mango kulfi, cardamom-forward, lightly sweetened.",
-  ],
-  varsha: [
-    "Hot tomato-dhania shorba with a tempered mustard finish.",
-    "Roasted corn and raw papaya salad, lime.",
-    "Monsoon greens sautéed with garlic.",
-    "Masoor dal with ginger, paired with steamed rice.",
-    "Malai chicken skewers, finished over live coals.",
-    "Warm gulab jamun, served two to a bowl.",
-  ],
-  sharad: [
-    "Roasted pumpkin and coconut shorba.",
-    "Pomegranate, roasted beet, and walnut salad.",
-    "Stuffed baby eggplant in a peanut-sesame masala.",
-    "Toor dal, curry leaf tempering, paired with rice.",
-    "Tandoori mushroom skewers, smoked chilli marinade.",
-    "Til and jaggery ladoo, served warm.",
-  ],
-  hemant: [
-    "Roasted beet and ginger shorba.",
-    "Shredded carrot and radish salad, roasted peanuts.",
-    "Sarson ka saag, a spoon of ghee.",
-    "Urad dal, slow-cooked overnight, paired with rice.",
-    "Tandoori leg of lamb, marinated twenty-four hours.",
-    "Moong dal halwa, warm, ghee-rich.",
-  ],
-  shishir: [
-    "Black pepper rasam, served piping hot.",
-    "Citrus segments, roasted peanut, and chilli.",
-    "Methi malai mutter, slow-cooked.",
-    "Dal makhani, finished with a swirl of cream.",
-    "Tandoori chicken, extra char, extra smoke.",
-    "Moong dal halwa, ghee-rich, served warm.",
-  ],
-};
-
-// Same page split as seasonal-menu.tsx's MenuSpread — lighter opening
-// courses on the left, heartier back half on the right.
-const PAGE_GROUPS = [
-  { indices: [0, 1, 2] as const, mark: "आरंभ", label: "To begin" },
-  { indices: [3, 4, 5] as const, mark: "मुख्य", label: "Mains & sweets" },
-];
 
 /**
  * Seasonal menu, reskinned as a restaurant menu card: two juxtaposed
  * oversized serif category words (thin + bold, coral), a textured photo,
  * and dotted-leader item rows — course number stands in for a price since
- * Urasa doesn't sell an à la carte list. Ritu chip row still drives which
- * ritu's dishes are shown, reusing useSeason() from the classic site.
+ * Urasa doesn't sell an à la carte list. Course stages + per-ritu dishes
+ * come from lib/menu.ts (shared with the classic theme and the home
+ * page's Menu JSON-LD), so all three can never disagree. Ritu chip row
+ * still drives which ritu's dishes are shown, reusing useSeason() from
+ * the classic site.
  */
 export function UnoraMenu() {
   const { ritu } = useSeason();
-  const dishes = DISHES_BY_RITU[ritu.id] ?? DISHES_BY_RITU.vasant;
+  const dishes = getDishesForRitu(ritu);
 
   return (
     <section
@@ -157,13 +90,13 @@ export function UnoraMenu() {
                 className="font-display font-normal leading-none text-5xl sm:text-7xl"
                 style={{ color: UNORA.coral }}
               >
-                {PAGE_GROUPS[0].label}
+                {MENU_PAGE_GROUPS[0].label}
               </h3>
               <h3
                 className="font-display font-bold leading-none text-5xl sm:text-7xl"
                 style={{ color: UNORA.coralDeep }}
               >
-                {PAGE_GROUPS[1].label}
+                {MENU_PAGE_GROUPS[1].label}
               </h3>
             </div>
 
@@ -183,7 +116,7 @@ export function UnoraMenu() {
                 />
               </div>
 
-              {PAGE_GROUPS.map((group) => (
+              {MENU_PAGE_GROUPS.map((group) => (
                 <div key={group.mark}>
                   <div className="mb-6 flex items-center gap-2">
                     <span

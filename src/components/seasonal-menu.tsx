@@ -6,91 +6,13 @@ import { Reveal } from "./reveal";
 import { RituBadge } from "./ritu-badge";
 import { useSeason } from "./app-provider";
 import { RITUS, type Ritu } from "@/lib/season";
+import { COURSE_STAGES, COURSE_PHOTOS, getDishesForRitu } from "@/lib/menu";
 import { HeroScene } from "./hero-scene-lazy";
 import { CtaButton } from "./cta-button";
 
-// The six course stages are constant — what changes per ritu is which
-// dish fills each stage. Keeping stage and dish separate means switching
-// the ritu preview swaps the menu content without restructuring the list.
-const COURSE_STAGES = [
-  { n: "01", jp: "स्वागत", name: "Swagat", translation: "Welcome" },
-  { n: "02", jp: "कचूंबर", name: "Kachumber", translation: "Raw salad" },
-  { n: "03", jp: "सब्ज़ी", name: "Sabzi", translation: "Vegetable" },
-  { n: "04", jp: "दाल-चावल", name: "Dal-Chawal", translation: "Lentils & rice" },
-  { n: "05", jp: "तंदूर", name: "Tandoor", translation: "From the clay oven" },
-  { n: "06", jp: "मिष्ठान", name: "Mishti", translation: "Something sweet" },
-] as const;
-
-// One photo per course stage, index-matched to COURSE_STAGES. These are
-// the same six generic dish shots used elsewhere on the site (Kitchen's
-// "Plated" grid) — reused here rather than sourcing 36 unique per-ritu
-// photos, so the same photo appears in the same course slot regardless of
-// which ritu is selected. The dish description below it still changes.
-const COURSE_PHOTOS = [
-  "/food/thali-platter.webp",
-  "/food/tomato-basil-pasta.webp",
-  "/food/rose-lassi.webp",
-  "/food/green-pea-soup.webp",
-  "/food/seasonal-fruit-plate.webp",
-  "/food/berry-smoothie.webp",
-];
-
-// Illustrative only — six dishes per ritu, one per course stage above.
-// Real event menus are tasted and confirmed before booking.
-const DISHES_BY_RITU: Record<string, string[]> = {
-  vasant: [
-    "Fresh pea and mint shorba, finished with a curry leaf tempering.",
-    "Shaved fennel, orange, and young spinach, citrus dressing.",
-    "Stir-fried spring greens with garlic and dried red chilli.",
-    "Moong dal with fresh dill, paired with jeera rice.",
-    "Charred paneer tikka with a raw mango glaze.",
-    "Gajar halwa, lightly spiced, served warm.",
-  ],
-  grishma: [
-    "Chilled raw mango and buttermilk shorba, mustard tempering.",
-    "Cucumber, mint, and pomegranate salad, black salt.",
-    "Bhindi tossed with dried mango powder and kalonji.",
-    "Chana dal with tamarind, paired with jeera rice.",
-    "Tandoori prawns, yoghurt and kasuri methi marinade.",
-    "Mango kulfi, cardamom-forward, lightly sweetened.",
-  ],
-  varsha: [
-    "Hot tomato-dhania shorba with a tempered mustard finish.",
-    "Roasted corn and raw papaya salad, lime.",
-    "Monsoon greens sautéed with garlic.",
-    "Masoor dal with ginger, paired with steamed rice.",
-    "Malai chicken skewers, finished over live coals.",
-    "Warm gulab jamun, served two to a bowl.",
-  ],
-  sharad: [
-    "Roasted pumpkin and coconut shorba.",
-    "Pomegranate, roasted beet, and walnut salad.",
-    "Stuffed baby eggplant in a peanut-sesame masala.",
-    "Toor dal, curry leaf tempering, paired with rice.",
-    "Tandoori mushroom skewers, smoked chilli marinade.",
-    "Til and jaggery ladoo, served warm.",
-  ],
-  hemant: [
-    "Roasted beet and ginger shorba.",
-    "Shredded carrot and radish salad, roasted peanuts.",
-    "Sarson ka saag, a spoon of ghee.",
-    "Urad dal, slow-cooked overnight, paired with rice.",
-    "Tandoori leg of lamb, marinated twenty-four hours.",
-    "Moong dal halwa, warm, ghee-rich.",
-  ],
-  shishir: [
-    "Black pepper rasam, served piping hot.",
-    "Citrus segments, roasted peanut, and chilli.",
-    "Methi malai mutter, slow-cooked.",
-    "Dal makhani, finished with a swirl of cream.",
-    "Tandoori chicken, extra char, extra smoke.",
-    "Moong dal halwa, ghee-rich, served warm.",
-  ],
-};
-
 export function SeasonalMenu() {
   const { ritu, isPreview, previewRitu } = useSeason();
-  const dishes = DISHES_BY_RITU[ritu.id] ?? DISHES_BY_RITU.vasant;
+  const dishes = getDishesForRitu(ritu);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleSelect = (id: string) => {

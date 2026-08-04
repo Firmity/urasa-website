@@ -1,11 +1,22 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { CtaButton } from "@/components/cta-button";
+import { JsonLd } from "@/components/json-ld";
+import { servicesSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Services — Urasa",
+  title: "Catering Services & Scale — Urasa",
   description:
-    "One Urasa kitchen, four service formats — corporate and executive dining, weddings, private functions, and standing receptions.",
+    "Corporate catering, weddings, private dining, and large receptions. Full-service delivery, live kitchen counters, and front-of-house staffing for 10 to 800+ guests.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    type: "website",
+    url: "/services",
+    title: "Catering Services & Scale — Urasa",
+    description:
+      "Personalised seasonal menus and live kitchen counters for corporate institutions, weddings, and private events.",
+    images: ["/food/rainbow-bowl.webp"],
+  },
 };
 
 const SERVICES = [
@@ -34,6 +45,7 @@ const SERVICES = [
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={servicesSchema()} />
       <section aria-labelledby="services-heading" className="border-b border-line">
         <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20 md:px-8 md:py-28">
           <Reveal className="max-w-2xl">
