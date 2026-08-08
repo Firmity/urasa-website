@@ -12,8 +12,10 @@ export default function manifest(): MetadataRoute.Manifest {
       "A seasonal, ingredient-first catering house. One kitchen team, from the first tasting to the last course.",
     start_url: "/",
     display: "standalone",
-    background_color: "#EDEEE8",
-    theme_color: "#40492C",
+    // Rebrand (Aug 2026): matches the new Unora theme's cream page bg and
+    // the logo's orange arc — see src/components/unora/theme.ts.
+    background_color: "#F8F4EF",
+    theme_color: "#E4572E",
     icons: [
       {
         src: "/icons/icon-192.png",

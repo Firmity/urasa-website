@@ -88,10 +88,11 @@ export function SiteHeader() {
           <Image
             src="/logo-mark.webp"
             alt="Urasa — We care about warmth"
-            width={520}
-            height={469}
+            width={224}
+            height={213}
             className="h-10 w-auto sm:h-12"
             priority
+            unoptimized
           />
         </Link>
 

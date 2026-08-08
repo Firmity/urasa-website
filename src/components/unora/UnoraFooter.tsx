@@ -46,10 +46,11 @@ export function UnoraFooter() {
             <Image
               src="/logo-full.webp"
               alt="Urasa — We care about warmth"
-              width={520}
-              height={648}
+              width={841}
+              height={272}
               className="h-12 w-auto sm:h-14"
               style={{ filter: "brightness(0) invert(1)" }}
+              unoptimized
             />
             <p className="text-xs text-white/60">
               &copy; {new Date().getFullYear()} Urasa.

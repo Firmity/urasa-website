@@ -1,17 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Reveal } from "./reveal";
 import { CtaButton } from "./cta-button";
 import { Loader } from "./loader";
+import { SITE_EMAIL, SITE_PHONE_DISPLAY, SITE_PHONE_TEL } from "@/lib/contact-info";
 
-// No real backend yet — this stands in for the network round-trip so the
-// submit button's loading state (and the embroidered loader) has a job.
-const SIMULATED_LATENCY_MS = 650;
+type SubmitState = "idle" | "submitting" | "submitted" | "error";
 
 export function Contact() {
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const [state, setState] = useState<SubmitState>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (state === "submitting") return;
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      date: String(formData.get("date") ?? ""),
+      guests: String(formData.get("guests") ?? ""),
+      details: String(formData.get("details") ?? ""),
+    };
+
+    setState("submitting");
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/enquire", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const body = (await res.json().catch(() => null)) as
+        | { ok: boolean; error?: string }
+        | null;
+
+      if (!res.ok || !body?.ok) {
+        throw new Error(body?.error ?? "[NETWORK_ERR] Something went wrong. Please try again.");
+      }
+
+      setState("submitted");
+    } catch (err) {
+      setState("error");
+      // Strip the leading [ERROR_CODE] tag before showing this to a
+      // visitor — that prefix is for server logs, not the enquiry form.
+      const message =
+        err instanceof Error ? err.message.replace(/^\[[A-Z_]+\]\s*/, "") : "";
+      setErrorMessage(message || "Something went wrong. Please try again.");
+    }
+  }
 
   return (
     <section id="contact" aria-labelledby="contact-heading">
@@ -36,7 +76,7 @@ export function Contact() {
                   Studio
                 </dt>
                 <dd className="mt-1 text-sm text-ink">
-                  12 Foundry Lane, Lucknow, Uttar Pradesh
+                  Sector-64, Business Park, Noida, Uttar Pradesh
                 </dd>
               </div>
               <div>
@@ -44,8 +84,8 @@ export function Contact() {
                   Direct line
                 </dt>
                 <dd className="mt-1 text-sm text-ink">
-                  <a href="tel:+910000000000" className="brush-underline">
-                    +91 00000 00000
+                  <a href={`tel:${SITE_PHONE_TEL}`} className="brush-underline">
+                    {SITE_PHONE_DISPLAY}
                   </a>
                 </dd>
               </div>
@@ -54,8 +94,8 @@ export function Contact() {
                   Email
                 </dt>
                 <dd className="mt-1 text-sm text-ink">
-                  <a href="mailto:events@urasa.example" className="brush-underline">
-                    events@urasa.example
+                  <a href={`mailto:${SITE_EMAIL}`} className="brush-underline">
+                    {SITE_EMAIL}
                   </a>
                 </dd>
               </div>
@@ -63,7 +103,7 @@ export function Contact() {
           </Reveal>
 
           <Reveal delay={100}>
-            {submitted ? (
+            {state === "submitted" ? (
               <div
                 role="status"
                 className="flex h-full flex-col justify-center border border-line bg-washi-raised p-8"
@@ -72,24 +112,13 @@ export function Contact() {
                   Received, thank you.
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                  We&rsquo;ll reply from events@urasa.example within one
-                  business day with availability.
+                  We&rsquo;ll reply from {SITE_EMAIL} within one business
+                  day with availability. Check your inbox for a
+                  confirmation of what you sent us.
                 </p>
               </div>
             ) : (
-              <form
-                className="space-y-6"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (submitting) return;
-                  setSubmitting(true);
-                  window.setTimeout(() => {
-                    setSubmitting(false);
-                    setSubmitted(true);
-                  }, SIMULATED_LATENCY_MS);
-                }}
-                noValidate
-              >
+              <form className="space-y-6" onSubmit={handleSubmit} noValidate>
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <Field id="name" label="Name" autoComplete="name" required />
                   <Field
@@ -118,8 +147,13 @@ export function Contact() {
                     className="w-full border border-line bg-transparent px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand"
                   />
                 </div>
-                <CtaButton type="submit" disabled={submitting} aria-busy={submitting}>
-                  {submitting ? (
+                {state === "error" && errorMessage && (
+                  <p role="alert" className="text-sm text-red-700">
+                    {errorMessage}
+                  </p>
+                )}
+                <CtaButton type="submit" disabled={state === "submitting"} aria-busy={state === "submitting"}>
+                  {state === "submitting" ? (
                     <span className="flex items-center gap-2">
                       <Loader size={16} label="Sending enquiry" />
                       Sending&hellip;

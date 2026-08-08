@@ -33,6 +33,8 @@ const BRAND_MOCKUPS = [
   { src: "/mockups/apron-flatlay.webp", alt: "Urasa apron laid flat beside kitchen tools" },
   { src: "/mockups/signage-angle.webp", alt: "Urasa storefront signage, side angle" },
   { src: "/mockups/logo-print.webp", alt: "Urasa logo printed on paper" },
+  { src: "/mockups/chef-jacket.webp", alt: "Urasa mark embroidered on a chef's jacket" },
+  { src: "/mockups/app-icon-phone.webp", alt: "Urasa app icon on a phone home screen" },
 ];
 
 export default function AboutPage() {
@@ -99,10 +101,11 @@ export default function AboutPage() {
               <Image
                 src="/logo-mark.webp"
                 alt="Urasa mark"
-                width={520}
-                height={469}
+                width={224}
+                height={213}
                 className="relative h-[62%] w-auto drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
                 style={{ filter: "brightness(0) invert(1)" }}
+                unoptimized
                 priority
               />
             </div>
@@ -210,7 +213,7 @@ export default function AboutPage() {
             </h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-soft">
               From the signage over the kitchen door to the tub that leaves
-              it — the same mark, the same green.
+              it — the same mark, the same warmth.
             </p>
           </Reveal>
 

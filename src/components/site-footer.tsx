@@ -24,9 +24,10 @@ export function SiteFooter() {
           <Image
             src="/logo-full.webp"
             alt="Urasa — We care about warmth"
-            width={520}
-            height={648}
+            width={841}
+            height={272}
             className="h-14 w-auto sm:h-16"
+            unoptimized
           />
           <p className="text-xs text-nezumi">
             &copy; {new Date().getFullYear()} Urasa.

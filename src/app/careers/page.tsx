@@ -3,6 +3,7 @@ import { Reveal } from "@/components/reveal";
 import { CtaButton } from "@/components/cta-button";
 import { JsonLd } from "@/components/json-ld";
 import { careersSchema } from "@/lib/schema";
+import { SITE_EMAIL } from "@/lib/contact-info";
 
 export const metadata: Metadata = {
   title: "Careers at Urasa — Join Our Kitchen Team",
@@ -106,7 +107,7 @@ export default function CareersPage() {
           </ul>
 
           <div className="mt-10 flex justify-start">
-            <CtaButton href="mailto:careers@urasa.example?subject=Application">
+            <CtaButton href={`mailto:${SITE_EMAIL}?subject=Application`}>
               Send your CV
             </CtaButton>
           </div>

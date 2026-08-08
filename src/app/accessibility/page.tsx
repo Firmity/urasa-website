@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { JsonLd } from "@/components/json-ld";
 import { accessibilitySchema } from "@/lib/schema";
+import { SITE_EMAIL } from "@/lib/contact-info";
 
 export const metadata: Metadata = {
   title: "Accessibility Statement — Urasa",
@@ -97,8 +98,8 @@ export default function AccessibilityPage() {
             <h2 className="font-display text-xl text-ink">Report an issue</h2>
             <p className="mt-2 text-sm leading-relaxed text-ink-soft">
               Email{" "}
-              <a href="mailto:events@urasa.example" className="brush-underline">
-                events@urasa.example
+              <a href={`mailto:${SITE_EMAIL}`} className="brush-underline">
+                {SITE_EMAIL}
               </a>{" "}
               with what you were trying to do and what happened — we treat
               accessibility reports as bugs, not feedback.
