@@ -1,5 +1,7 @@
 import { SITE_URL } from "./site";
 import { COURSE_STAGES, MENU_PAGE_GROUPS, getCurrentMenu } from "./menu";
+import { SITE_ADDRESS, SITE_EMAIL, SITE_PHONE_TEL } from "./contact-info";
+import { FAQ_ITEMS } from "./faq";
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
@@ -40,6 +42,22 @@ function organizationFull(extra: Record<string, unknown> = {}) {
     slogan: "We care about warmth",
     servesCuisine: ["Indian", "Seasonal", "Vegetarian", "Non-Vegetarian"],
     priceRange: "₹₹₹",
+    telephone: SITE_PHONE_TEL,
+    email: SITE_EMAIL,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE_ADDRESS.streetAddress,
+      addressLocality: SITE_ADDRESS.addressLocality,
+      addressRegion: SITE_ADDRESS.addressRegion,
+      addressCountry: SITE_ADDRESS.addressCountry,
+    },
+    // Matches the "6 cities" stat shown on the home/about pages — no
+    // specific city names are published elsewhere on the site, so none
+    // are invented here.
+    areaServed: {
+      "@type": "Country",
+      name: "India",
+    },
     knowsAbout: [
       "Corporate Catering",
       "Private Catering",
@@ -240,6 +258,40 @@ export function responsibilitySchema() {
         "Minimal, deliberate waste",
         "One accountable kitchen",
       ]),
+    ],
+  };
+}
+
+/**
+ * FAQPage schema for /faq — built directly from FAQ_ITEMS (lib/faq.ts),
+ * the same array the page renders as visible text. Keeping schema and
+ * visible copy sourced from one array means the structured data can
+ * never claim something the page doesn't actually show, which is both
+ * the search-engine rich-result requirement and just good hygiene for
+ * an AI crawler cross-checking one against the other.
+ */
+export function faqSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "@id": `${SITE_URL}/faq/#webpage`,
+        url: `${SITE_URL}/faq`,
+        name: "Frequently Asked Questions — Urasa",
+        description:
+          "Answers to common questions about Urasa's catering: philosophy, services, guest ranges, sourcing, and how booking works.",
+        isPartOf: isPartOfWebsite,
+        mainEntity: FAQ_ITEMS.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      },
+      organizationLite(["Catering FAQ", "Booking Process", "Seasonal Menus"]),
     ],
   };
 }

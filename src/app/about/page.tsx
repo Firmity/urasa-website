@@ -5,6 +5,7 @@ import { CountUp } from "@/components/count-up";
 import { CtaButton } from "@/components/cta-button";
 import { JsonLd } from "@/components/json-ld";
 import { aboutSchema } from "@/lib/schema";
+import { STAT_CITIES, STAT_MAX_GUESTS, STAT_MIN_GUESTS } from "@/lib/stats";
 
 export const metadata: Metadata = {
   title: "About Urasa — Driven by Ritu, Santulan & Nishtha",
@@ -185,7 +186,7 @@ export default function AboutPage() {
                 FOOTPRINT
               </p>
               <p className="mt-1.5 text-lg text-ink">
-                <CountUp to={6} /> cities
+                <CountUp to={STAT_CITIES} /> cities
               </p>
             </div>
             <div>
@@ -193,7 +194,7 @@ export default function AboutPage() {
                 SCALE
               </p>
               <p className="mt-1.5 text-lg text-ink">
-                10–<CountUp to={800} /> guests
+                {STAT_MIN_GUESTS}–<CountUp to={STAT_MAX_GUESTS} /> guests
               </p>
             </div>
           </Reveal>

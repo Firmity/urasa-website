@@ -2,6 +2,12 @@ import { CountUp } from "./count-up";
 import { CtaButton } from "./cta-button";
 import { BorderStrip } from "./border-strip";
 import { HeroSlideshow } from "./hero-slideshow";
+import {
+  STAT_CITIES,
+  STAT_EVENTS_CATERED,
+  STAT_MAX_GUESTS,
+  STAT_MIN_GUESTS,
+} from "@/lib/stats";
 
 export function Hero() {
   return (
@@ -61,7 +67,7 @@ export function Hero() {
                 Events served
               </dt>
               <dd className="mt-1 text-2xl text-ink sm:text-3xl">
-                <CountUp to={640} suffix="+" />
+                <CountUp to={STAT_EVENTS_CATERED} suffix="+" />
               </dd>
             </div>
             <div>
@@ -69,7 +75,7 @@ export function Hero() {
                 Guest capacity
               </dt>
               <dd className="mt-1 text-2xl text-ink sm:text-3xl">
-                10–<CountUp to={800} />
+                {STAT_MIN_GUESTS}–<CountUp to={STAT_MAX_GUESTS} />
               </dd>
             </div>
             <div>
@@ -77,7 +83,7 @@ export function Hero() {
                 Cities
               </dt>
               <dd className="mt-1 text-2xl text-ink sm:text-3xl">
-                <CountUp to={6} />
+                <CountUp to={STAT_CITIES} />
               </dd>
             </div>
           </dl>

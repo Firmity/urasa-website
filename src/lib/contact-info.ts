@@ -16,3 +16,14 @@ export const SITE_PHONE_TEL = "+911204245551";
 
 // Human-readable form for on-page display.
 export const SITE_PHONE_DISPLAY = "+91 120 424 5551";
+
+// Studio address, shown on the contact section and used in structured
+// data (schema.ts PostalAddress) and llms.txt.
+export const SITE_ADDRESS = {
+  streetAddress: "Sector-64, Business Park",
+  addressLocality: "Noida",
+  addressRegion: "Uttar Pradesh",
+  addressCountry: "IN",
+} as const;
+
+export const SITE_ADDRESS_DISPLAY = "Sector-64, Business Park, Noida, Uttar Pradesh";

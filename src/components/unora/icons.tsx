@@ -161,6 +161,16 @@ export function HandshakeIcon() {
   );
 }
 
+export function QuestionCircleIcon() {
+  return (
+    <svg {...common}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.2 9.5a2.8 2.8 0 015.4.9c0 1.8-2.6 2.1-2.6 3.8" />
+      <path d="M12 17.2v.1" />
+    </svg>
+  );
+}
+
 export function CalendarClockIcon() {
   return (
     <svg {...common}>

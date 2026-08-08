@@ -54,6 +54,9 @@ export function SiteFooter() {
           <a href="/enquire" className="brush-underline text-xs tracking-[0.1em] text-nezumi">
             Enquire
           </a>
+          <a href="/faq" className="brush-underline text-xs tracking-[0.1em] text-nezumi">
+            FAQ
+          </a>
           <a href="/accessibility" className="brush-underline text-xs tracking-[0.1em] text-nezumi">
             Accessibility statement
           </a>

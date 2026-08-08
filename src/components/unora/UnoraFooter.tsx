@@ -8,6 +8,7 @@ import {
   ScaleIcon,
   CalendarClockIcon,
   ShieldCheckIcon,
+  QuestionCircleIcon,
 } from "./icons";
 import { GradientField } from "./GradientField";
 import { UNORA } from "./theme";
@@ -21,6 +22,7 @@ const FOOTER_LINKS = [
   { href: "/careers", label: "Careers", icon: <BriefcaseIcon /> },
   { href: "/responsibility", label: "Responsibility", icon: <ScaleIcon /> },
   { href: "/enquire", label: "Enquire", icon: <CalendarClockIcon /> },
+  { href: "/faq", label: "FAQ", icon: <QuestionCircleIcon /> },
   { href: "/accessibility", label: "Accessibility", icon: <ShieldCheckIcon /> },
 ];
 
@@ -62,7 +64,7 @@ export function UnoraFooter() {
 
         <nav
           aria-label="Footer"
-          className="mt-10 grid grid-cols-3 gap-x-4 gap-y-8 sm:mt-12 sm:grid-cols-4 md:grid-cols-7"
+          className="mt-10 grid grid-cols-4 gap-x-4 gap-y-8 sm:mt-12 md:grid-cols-8"
         >
           {FOOTER_LINKS.map((link) => (
             <a

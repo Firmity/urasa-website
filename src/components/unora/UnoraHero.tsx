@@ -3,6 +3,7 @@ import { Reveal } from "../reveal";
 import { CountUp } from "../count-up";
 import { UnoraButton } from "./button";
 import { UNORA } from "./theme";
+import { STAT_CITIES, STAT_MAX_GUESTS, STAT_MIN_GUESTS } from "@/lib/stats";
 
 /**
  * Hero — logo lockup, tagline, photo collage, circular trust-badge callout.
@@ -72,7 +73,7 @@ export function UnoraHero() {
           <div className="mt-10 flex gap-8 border-t pt-6" style={{ borderColor: "rgba(22,59,77,0.14)" }}>
             <div>
               <p className="font-display text-2xl" style={{ color: UNORA.navy }}>
-                <CountUp to={6} /> cities
+                <CountUp to={STAT_CITIES} /> cities
               </p>
               <p className="mt-1 text-[11px] tracking-[0.14em]" style={{ color: UNORA.inkSoft }}>
                 FOOTPRINT
@@ -80,7 +81,7 @@ export function UnoraHero() {
             </div>
             <div>
               <p className="font-display text-2xl" style={{ color: UNORA.navy }}>
-                10–<CountUp to={800} /> guests
+                {STAT_MIN_GUESTS}–<CountUp to={STAT_MAX_GUESTS} /> guests
               </p>
               <p className="mt-1 text-[11px] tracking-[0.14em]" style={{ color: UNORA.inkSoft }}>
                 SCALE

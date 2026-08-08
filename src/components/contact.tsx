@@ -4,7 +4,12 @@ import { useState, type FormEvent } from "react";
 import { Reveal } from "./reveal";
 import { CtaButton } from "./cta-button";
 import { Loader } from "./loader";
-import { SITE_EMAIL, SITE_PHONE_DISPLAY, SITE_PHONE_TEL } from "@/lib/contact-info";
+import {
+  SITE_ADDRESS_DISPLAY,
+  SITE_EMAIL,
+  SITE_PHONE_DISPLAY,
+  SITE_PHONE_TEL,
+} from "@/lib/contact-info";
 
 type SubmitState = "idle" | "submitting" | "submitted" | "error";
 
@@ -76,7 +81,7 @@ export function Contact() {
                   Studio
                 </dt>
                 <dd className="mt-1 text-sm text-ink">
-                  Sector-64, Business Park, Noida, Uttar Pradesh
+                  {SITE_ADDRESS_DISPLAY}
                 </dd>
               </div>
               <div>
