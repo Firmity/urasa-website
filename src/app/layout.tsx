@@ -14,6 +14,7 @@ import { SkipLink } from "@/components/skip-link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SITE_URL } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 
 const fontVariables = "font-vars";
 
@@ -82,6 +83,7 @@ export default function RootLayout({
           <main id="main">{children}</main>
           <SiteFooter />
         </MotionProvider>
+        <Analytics />
       </body>
     </html>
   );
